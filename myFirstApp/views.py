@@ -1,7 +1,7 @@
 from django.shortcuts import render 
 from django.http import HttpResponse,HttpResponseNotFound 
 from django.template import loader 
-from myFirstApp.models import User 
+from myFirstApp.models import User,Address
 from django.core.exceptions import ObjectDoesNotExist
 
 def index(request): 
@@ -16,10 +16,16 @@ def index(request):
     
     try:
         #user = User.objects(first_name = 'Tony').get() # Get single user from DB    
-        params = {'user': User.objects} # Get all users from DB                       
+        users = User.objects # Get all users from DB                       
     except ObjectDoesNotExist:
-        print('user does not exist')        
+        print('user does not exist')   
 
+    try:       
+        addresses = Address.objects                  
+    except ObjectDoesNotExist:
+        print('address does not exist')   
+                     
+    params = {'user':users,'address':addresses} 
     template = loader.get_template('index.html')     
     return HttpResponse(template.render(params))
     
@@ -51,6 +57,7 @@ def update(request):
      
 
 def delete(request):     
+
     id = eval("request." + request.method + "['id']")    
     user = User.objects(id = id).get()    
     if request.method == 'POST':                      
@@ -65,5 +72,20 @@ def delete(request):
     template = loader.get_template(template_name)     
     return HttpResponse(template.render(params))
 
+       
+def address(request): 
+    if request.method == 'POST':
+        address = Address(box = request.POST['box'])
+        address.code = request.POST['code']
+        address.city = request.POST['city']
+        address.country = request.POST['country']        
+        address.save()          
+    
+    try:         
+        params = {'address': Address.objects}                     
+    except ObjectDoesNotExist:
+        print('address does not exist')        
 
+    template = loader.get_template('address.html')     
+    return HttpResponse(template.render(params))
      

@@ -1,0 +1,47 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>Index</title>
+    {% load static %}      
+</head>  
+<body>  
+<h2>User address</h2>      
+    <form method="POST" action="http://127.0.0.1:8000/address/">         
+        <ul>
+          <li>
+            <input type="text" name="box" placeholder="box" required>
+          </li>
+          <li>
+            <input type="text" name="code" placeholder="code" required>            
+          </li>
+          <li>
+            <input type="text" name="city" placeholder="city" required>            
+          </li>
+          <li>
+            <input type="text" name="country" placeholder="country" required>            
+          </li>        
+          <li>
+            <input type="submit" value="Add Address">
+          </li>
+        </ul>
+      </form>
+
+        <table>
+            <tr>
+                <td>Box</td><td>Code</td><td>city</td><td>country</td>
+            </tr>
+            {% for address in address %}
+            <tr>
+                <td>{{ address.box }}</td>
+                <td>{{ address.code }}</td>
+                <td>{{ address.city }}</td>
+                <td>{{ address.country }}</td>      
+               
+            </tr>
+            {% endfor %}
+        </table>   
+      
+</body>  
+</html>  
+

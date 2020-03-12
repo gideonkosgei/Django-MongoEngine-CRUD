@@ -1,0 +1,72 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>Index</title>
+    {% load static %}      
+</head>  
+<body>  
+<h2>Welcome to Django</h2>  
+
+
+    <img src="{% static 'images/passport_photo.jpg' %}" alt="My image" height="100px" width="100px"/>
+
+    <form method="POST" action="http://127.0.0.1:8000/index/">   
+      
+        <ul>
+          <li>
+            <input type="text" name="first_name" placeholder="first Name" required>
+          </li>
+          <li>
+            <input type="text" name="last_name" placeholder="last Name" required>            
+          </li>
+          <li>
+            <input type="text" name="contact" placeholder="contact" required>            
+          </li>
+          <li>
+            <input type="text" name="email" placeholder="email" required>            
+          </li>
+          <li>
+            <input type="text" name="age" placeholder="age" required>            
+          </li>
+          <li>
+            <input type="submit" value="Add User">
+          </li>
+        </ul>
+      </form>
+
+        <table>
+            <tr>
+                <td>first name</td><td>Last Name</td><td>contact</td><td>Email</td><td>Age</td><td>Edit</td><td>Delete</td>
+            </tr>
+            {% for user in user %}
+            <tr>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.contact }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.age }}</td>
+                <td>
+                     <form method="get" action="http://127.0.0.1:8000/update">
+                        <input type="hidden" name="id" value="{{ user.id }}">
+                        <input type="hidden" name="first_name" value="{{ user.last_name }}">
+                        <input type="hidden" name="last_name" value="{{ user.last_name }}">
+                        <input type="hidden" name="contact" value="{{ user.contact }}">
+                        <input type="hidden" name="email" value="{{ user.email }}">
+                        <input type="hidden" name="age" value="{{ user.age }}">
+                        <input type="submit" name="" value="update">
+                      </form>
+                </td>
+                <td>
+                    <form method="get" action="http://127.0.0.1:8000/delete">
+                        <input type="hidden" name="id" value="{{ user.id }}">
+                        <input type="submit" value="delete">
+                      </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>   
+      
+</body>  
+</html>  
+

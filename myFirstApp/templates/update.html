@@ -1,0 +1,42 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>Index</title>
+    {% load static %}      
+</head>  
+<body>  
+<h2>Welcome to Django</h2>  
+
+
+    <img src="{% static 'images/passport_photo.jpg' %}" alt="My image" height="100px" width="100px"/>
+
+    <form method="POST" action="http://127.0.0.1:8000/update/">   
+      
+        <ul>
+          <li>
+            <input type="text" name="first_name" placeholder="first Name" value="{{user.first_name}}" required>
+          </li>
+          <li>
+            <input type="text" name="last_name" placeholder="last Name" value="{{user.last_name}}" required>            
+          </li>
+          <li>
+            <input type="text" name="contact" placeholder="contact" value="{{user.contact}}" required>            
+          </li>
+          <li>
+            <input type="text" name="email" placeholder="email" value="{{user.email}}" required>            
+          </li>
+          <li>
+            <input type="text" name="age" placeholder="age" value="{{user.age}}" required>            
+          </li>
+          <li>
+            <input type="hidden" name="id" value="{{user.id}}">
+            <input type="submit" value="Update User">
+          </li>
+        </ul>
+      </form>
+
+        
+</body>  
+</html>  
+
